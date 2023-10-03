@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "4nGJ01XdSbVRYZjiTS1oR880D2ZbMNLA2EHXHN6tpW7kNKMwNzARe1ZmG/Hp3j0eLtVpRiTALO6OBrNR00V8eg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\farou\\source\\repos\\AnimalShelter\\AnimalShelterApi\\AnimalShelterApi\\AnimalShelterApi.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\farou\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
+    "C:\\Users\\farou\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\farou\\.nuget\\packages\\swashbuckle.aspnetcore\\6.2.3\\swashbuckle.aspnetcore.6.2.3.nupkg.sha512",
+    "C:\\Users\\farou\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.2.3\\swashbuckle.aspnetcore.swagger.6.2.3.nupkg.sha512",
+    "C:\\Users\\farou\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.2.3\\swashbuckle.aspnetcore.swaggergen.6.2.3.nupkg.sha512",
+    "C:\\Users\\farou\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.2.3\\swashbuckle.aspnetcore.swaggerui.6.2.3.nupkg.sha512"
+  ],
+  "logs": []
+}
