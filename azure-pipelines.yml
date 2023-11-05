@@ -30,7 +30,7 @@ stages:
     # After build, add a task to zip the published files
     - task: ArchiveFiles@2
       inputs:
-        rootFolderOrFile: '$(build.artifactStagingDirectory)/publish' # Replace with the path to your published app
+        rootFolderOrFile: '$(build.artifactStagingDirectory)' 
         includeRootFolder: false
         archiveType: 'zip'
         archiveFile: '$(Build.ArtifactStagingDirectory)/WebApp.zip'
