@@ -57,6 +57,10 @@ app.UseRouting();
 
 app.UseEndpoints(endpoints =>
 {
+    endpoints.MapGet("/", context => {
+        context.Response.Redirect("/swagger");
+        return Task.CompletedTask;
+    });
     endpoints.MapControllers(); // Maps routes to controllers
 });
 app.Run();
