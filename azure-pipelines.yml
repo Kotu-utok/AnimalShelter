@@ -23,9 +23,19 @@ stages:
     - task: VSBuild@1
       inputs:
         solution: '$(solution)'
-        msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
+        msbuildArgs: '/p:DeployOnBuild=true /p:PublishProfile=YourPublishProfile /p:Configuration=$(buildConfiguration)'
         platform: '$(buildPlatform)'
         configuration: '$(buildConfiguration)'
+
+    # After build, add a task to zip the published files
+    - task: ArchiveFiles@2
+      inputs:
+        rootFolderOrFile: 'path_to_your_published_web_app' # Update this to the folder where your app is published
+        includeRootFolder: false
+        archiveType: 'zip'
+        archiveFile: '$(Build.ArtifactStagingDirectory)/WebApp.zip'
+        replaceExistingArchive: true
+
     - task: VSTest@2
       inputs:
         platform: '$(buildPlatform)'
@@ -53,7 +63,7 @@ stages:
               azureSubscription: 'AnimalShelterConnection'
               appType: 'webApp'
               appName: 'DevAnimalShelterApp'
-              package: '$(Pipeline.Workspace)/drop/WebApp.zip'
+              package: '$(Build.ArtifactStagingDirectory)/WebApp.zip'
 
 - stage: DeployToProd
   displayName: 'Deploy to Prod'
