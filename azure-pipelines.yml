@@ -23,7 +23,7 @@ stages:
     - task: VSBuild@1
       inputs:
         solution: '$(solution)'
-        msbuildArgs: '/p:DeployOnBuild=true /p:PublishProfile=FolderProfile.pubxml /p:Configuration=$(buildConfiguration)' # Replace FolderProfile.pubxml with your publish profile name
+        msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:OutDir=$(Build.ArtifactStagingDirectory) /p:DeployIisAppPath="Default Web Site"'
         platform: '$(buildPlatform)'
         configuration: '$(buildConfiguration)'
 
