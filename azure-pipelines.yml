@@ -63,7 +63,7 @@ stages:
               azureSubscription: 'AnimalShelterConnection'
               appType: 'webApp'
               appName: 'DevAnimalShelterApp'
-              package: '$(Build.ArtifactStagingDirectory)/WebApp.zip'
+              package: '$(build.artifactStagingDirectory)'/drop/WebApp.zip'
 
 - stage: DeployToProd
   displayName: 'Deploy to Prod'
@@ -81,4 +81,4 @@ stages:
               azureSubscription: 'AnimalShelterConnection'
               appType: 'webApp'
               appName: 'ProdAnimalShelterApp'
-              package: '$(Build.ArtifactStagingDirectory)/WebApp.zip' # Use the same artifact path as for dev
+              package: '$(build.artifactStagingDirectory)'/drop/WebApp.zip'
