@@ -31,9 +31,9 @@ stages:
         platform: '$(buildPlatform)'
         configuration: '$(buildConfiguration)'
     - task: PublishBuildArtifacts@1
-        inputs:
+          inputs:
             PathtoPublish: '$(build.artifactStagingDirectory)'
-            ArtifactName: 'drop' # or any other name for the artifact
+            ArtifactName: 'drop'
             publishLocation: 'Container'
 
 
