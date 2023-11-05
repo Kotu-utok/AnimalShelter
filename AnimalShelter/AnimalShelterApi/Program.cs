@@ -1,8 +1,6 @@
 using CDA;
 using DAL;
 using Azure.Identity;
-using Microsoft.Extensions.Configuration;
-using System.Runtime.CompilerServices;
 
 var builder = WebApplication.CreateBuilder(args);
 string connectionString = String.Empty;
