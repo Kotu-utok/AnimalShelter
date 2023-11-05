@@ -202,5 +202,3 @@ obj/
 *_ReSharper.*
 *___jb_tmp___*
 
-# Azure DevOps
-.pipelines/

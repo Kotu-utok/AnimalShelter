@@ -1,0 +1,68 @@
+trigger:
+- master
+- Dev
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  solution: '**/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+
+stages:
+- stage: Build
+  displayName: 'Build application'
+  jobs: 
+  - job: Build
+    steps:
+    - task: NuGetToolInstaller@1
+    - task: NuGetCommand@2
+      inputs:
+        restoreSolution: '$(solution)'
+    - task: VSBuild@1
+      inputs:
+        solution: '$(solution)'
+        msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
+        platform: '$(buildPlatform)'
+        configuration: '$(buildConfiguration)'
+    - task: VSTest@2
+      inputs:
+        platform: '$(buildPlatform)'
+        configuration: '$(buildConfiguration)'
+
+- stage: DeployToDev
+  displayName: 'Deploy to Dev'
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/Dev'))
+  jobs: 
+  - deployment: DeployWebApp
+    displayName: 'Deploy Web Application To Dev'
+    environment: 'DevelopementAnimalShelterEnv'
+    strategy: 
+      runOnce:
+        deploy:
+          steps:
+          - task: AzureWebApp@1
+            inputs:
+              azureSubscription: 'AnimalShelterConnection'
+              appType: 'webApp'
+              appName: 'DevAnimalShelterApp'
+              package: '$(build.artifactStagingDirectory)/**/*.zip'
+
+- stage: DeployToProd
+  displayName: 'Deploy to Prod'
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+  jobs: 
+  - deployment: DeployWebApp
+    displayName: 'Deploy Web Application To Prod'
+    environment: 'ProductionAnimalShelterEnv'
+    strategy: 
+      runOnce:
+        deploy:
+          steps:
+          - task: AzureWebApp@1
+            inputs:
+              azureSubscription: 'AnimalShelterConnection'
+              appType: 'webApp'
+              appName: 'ProdAnimalShelterApp'
+              package: '$(build.artifactStagingDirectory)/**/*.zip'
