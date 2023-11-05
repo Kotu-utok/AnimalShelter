@@ -14,25 +14,25 @@ builder.Services.AddAutoMapper(typeof(Program));
 
 RegisterCDAServices.RegisterTypeServiceCollectionExtention(builder.Services);
 
-if(builder.Environment.EnvironmentName == "Local")
-{
-    connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-}
-else
-{
-    string keyVaultUri = builder.Configuration["KEY_VAULT_URI"];
-    if(!string.IsNullOrEmpty(keyVaultUri))
-    {
-        builder.Configuration.AddAzureKeyVault(new Uri(keyVaultUri), new DefaultAzureCredential());
-    }
-    else
-    {
-        throw new InvalidOperationException("Key Vault URI must be set in the environment variables.");
-    }
-    connectionString = builder.Configuration["ConnectionString"];
-}
+//if(builder.Environment.EnvironmentName == "Local")
+//{
+//    connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+//}
+//else
+//{
+//    string keyVaultUri = builder.Configuration["KEY_VAULT_URI"];
+//    if(!string.IsNullOrEmpty(keyVaultUri))
+//    {
+//        builder.Configuration.AddAzureKeyVault(new Uri(keyVaultUri), new DefaultAzureCredential());
+//    }
+//    else
+//    {
+//        throw new InvalidOperationException("Key Vault URI must be set in the environment variables.");
+//    }
+//    connectionString = builder.Configuration["ConnectionString"];
+//}
 
-RegisterDALServices.ManageDepenciesDAL(builder.Services, connectionString);
+//RegisterDALServices.ManageDepenciesDAL(builder.Services, connectionString);
 
 var app = builder.Build();
 
@@ -42,7 +42,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.UseSwagger();
+app.UseSwaggerUI();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
