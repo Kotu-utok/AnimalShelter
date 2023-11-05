@@ -71,4 +71,4 @@ stages:
               azureSubscription: 'AnimalShelterConnection'
               appType: 'webApp'
               appName: 'ProdAnimalShelterApp'
-              package: '$(Pipeline.Workspace)/drop/WebApp.zip''
+              package: '$(Pipeline.Workspace)/drop/WebApp.zip'
