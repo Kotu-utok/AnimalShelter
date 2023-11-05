@@ -13,7 +13,7 @@ namespace DAL
         public DbSet<DALAnimalModel> Animals { get; set; }
         public DbSet<DalExaminationModel> Examinations { get; set; }
         public DbSet<DALPrescriptionModel> Prescriptions { get; set; }
-
+         
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             string connectionString = "Server=prodanimalshelter.mysql.database.azure.com;UserID=animalshelteruser;Password=Farouk12345$;Database=devanimalshelterdb;";
