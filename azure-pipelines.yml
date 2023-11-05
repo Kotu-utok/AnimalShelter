@@ -63,7 +63,7 @@ stages:
               azureSubscription: 'AnimalShelterConnection'
               appType: 'webApp'
               appName: 'DevAnimalShelterApp'
-              package: '$(build.artifactStagingDirectory)/drop/WebApp.zip'
+              package: '$(Pipeline.Workspace)/drop/WebApp.zip'
 
 - stage: DeployToProd
   displayName: 'Deploy to Prod'
@@ -81,4 +81,4 @@ stages:
               azureSubscription: 'AnimalShelterConnection'
               appType: 'webApp'
               appName: 'ProdAnimalShelterApp'
-              package: '$(build.artifactStagingDirectory)/drop/WebApp.zip'
+              package: '$(Pipeline.Workspace)/drop/WebApp.zip'
