@@ -43,7 +43,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 app.UseSwagger();
-app.UseSwaggerUI();
+app.UseSwaggerUI(options =>
+{
+    options.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+    options.RoutePrefix = string.Empty; // This will serve the Swagger UI at the app's root URL
+});
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
