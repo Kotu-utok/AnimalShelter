@@ -23,14 +23,14 @@ stages:
     - task: VSBuild@1
       inputs:
         solution: '$(solution)'
-        msbuildArgs: '/p:DeployOnBuild=true /p:PublishProfile=YourPublishProfile /p:Configuration=$(buildConfiguration)'
+        msbuildArgs: '/p:DeployOnBuild=true /p:PublishProfile=FolderProfile.pubxml /p:Configuration=$(buildConfiguration)' # Replace FolderProfile.pubxml with your publish profile name
         platform: '$(buildPlatform)'
         configuration: '$(buildConfiguration)'
 
     # After build, add a task to zip the published files
     - task: ArchiveFiles@2
       inputs:
-        rootFolderOrFile: 'path_to_your_published_web_app' # Update this to the folder where your app is published
+        rootFolderOrFile: '$(build.artifactStagingDirectory)/publish' # Replace with the path to your published app
         includeRootFolder: false
         archiveType: 'zip'
         archiveFile: '$(Build.ArtifactStagingDirectory)/WebApp.zip'
@@ -81,4 +81,4 @@ stages:
               azureSubscription: 'AnimalShelterConnection'
               appType: 'webApp'
               appName: 'ProdAnimalShelterApp'
-              package: '$(Pipeline.Workspace)/drop/WebApp.zip'
+              package: '$(Build.ArtifactStagingDirectory)/WebApp.zip' # Use the same artifact path as for dev
