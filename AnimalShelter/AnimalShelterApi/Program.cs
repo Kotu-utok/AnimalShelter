@@ -21,7 +21,7 @@ app.UseSwaggerUI(c =>
 });
 app.UseHttpsRedirection();
 app.UseRouting();
-app.MapControllers();
+app.MapControllers(); 
 
 
 app.UseEndpoints(endpoints =>
