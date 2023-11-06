@@ -14,7 +14,11 @@ RegisterCDAServices.RegisterTypeServiceCollectionExtention(builder.Services);
 var app = builder.Build();
 
 app.UseSwagger();
-app.UseSwaggerUI();
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+    c.RoutePrefix = string.Empty; // To serve the Swagger UI at the app's root (https://<your-app-name>.azurewebsites.net/), set RoutePrefix to an empty string.
+});
 app.UseHttpsRedirection();
 app.UseRouting();
 app.MapControllers();
