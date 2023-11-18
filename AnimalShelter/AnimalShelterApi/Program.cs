@@ -17,6 +17,19 @@ app.UseSwagger();
 app.UseSwaggerUI();
 app.UseHttpsRedirection();
 app.UseRouting();
+app.Use(async (context, next) =>
+{
+    if (context.Request.Path.Value == "/")
+    {
+        context.Response.Redirect("/swagger", permanent: false);
+    }
+    else
+    {
+        await next();
+    }
+});
+
 app.MapControllers();
+
 
 app.Run();
