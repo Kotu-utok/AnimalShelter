@@ -1,10 +1,13 @@
 using AnimalShelterApi.MappingProfile;
+using Azure.Identity;
 using CDA;
 using DAL;
+using Microsoft.Extensions.Configuration;
 using System.Reflection;
 
-var builder = WebApplication.CreateBuilder(args);
 string connectionString = String.Empty;
+var builder = WebApplication.CreateBuilder(args);
+
 builder.Configuration.AddUserSecrets(Assembly.GetExecutingAssembly(), true);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -21,15 +24,23 @@ builder.Services.AddCors(options =>
 });
 builder.Services.AddAutoMapper(typeof(AnimalMappingProfile));
 
-RegisterDALServices.ManageDepenciesDAL(builder.Services, builder.Configuration.GetConnectionString("DefaultConnection"));
+
 RegisterCDAServices.RegisterTypeServiceCollectionExtention(builder.Services);
 
 
+
 var app = builder.Build();
-if (app.Environment.IsDevelopment())
+if (app.Environment.EnvironmentName == "Local")
 {
+    connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
     app.UseDeveloperExceptionPage();
 }
+else if( app.Environment.IsDevelopment())
+{
+    builder.Configuration.AddAzureKeyVault(new Uri(builder.Configuration["KEY_VAULT_URI"]), new DefaultAzureCredential());
+    connectionString = builder.Configuration["ConnectionString"];
+}
+RegisterDALServices.ManageDepenciesDAL(builder.Services, connectionString);
 app.UseSwagger();
 app.UseSwaggerUI();
 app.UseHttpsRedirection();
