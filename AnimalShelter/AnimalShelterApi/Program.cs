@@ -24,11 +24,6 @@ builder.Services.AddCors(options =>
 });
 builder.Services.AddAutoMapper(typeof(AnimalMappingProfile));
 
-
-RegisterCDAServices.RegisterTypeServiceCollectionExtention(builder.Services);
-
-
-
 var app = builder.Build();
 if (app.Environment.EnvironmentName == "Local")
 {
@@ -41,6 +36,7 @@ else if( app.Environment.IsDevelopment())
     connectionString = builder.Configuration["ConnectionString"];
 }
 RegisterDALServices.ManageDepenciesDAL(builder.Services, connectionString);
+RegisterCDAServices.RegisterTypeServiceCollectionExtention(builder.Services);
 app.UseSwagger();
 app.UseSwaggerUI();
 app.UseHttpsRedirection();
