@@ -1,18 +1,35 @@
+using AnimalShelterApi.MappingProfile;
 using CDA;
-
+using DAL;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 string connectionString = String.Empty;
-
+builder.Configuration.AddUserSecrets(Assembly.GetExecutingAssembly(), true);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAllOrigins",
+        builder =>
+        {
+            builder.AllowAnyOrigin()
+                   .AllowAnyMethod()
+                   .AllowAnyHeader();
+        });
+});
+builder.Services.AddAutoMapper(typeof(AnimalMappingProfile));
 
+RegisterDALServices.ManageDepenciesDAL(builder.Services, builder.Configuration.GetConnectionString("DefaultConnection"));
 RegisterCDAServices.RegisterTypeServiceCollectionExtention(builder.Services);
 
 
 var app = builder.Build();
-
+if (app.Environment.IsDevelopment())
+{
+    app.UseDeveloperExceptionPage();
+}
 app.UseSwagger();
 app.UseSwaggerUI();
 app.UseHttpsRedirection();

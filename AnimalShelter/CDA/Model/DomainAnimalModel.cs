@@ -14,6 +14,6 @@ namespace CDA.Model
         public string Breed { get; set; }
         public string Color { get; set; }
         public DateTime DateOfArrival { get; set; }
-        public Decimal WeightAtArrival { get; set; }
+        public Decimal WeightAtArrivalKG { get; set; }
     }
 }

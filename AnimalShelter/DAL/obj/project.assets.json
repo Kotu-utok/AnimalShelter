@@ -405,6 +405,16 @@
         "build": {
           "buildTransitive/net6.0/System.Text.Json.targets": {}
         }
+      },
+      "Commun/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/Commun.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Commun.dll": {}
+        }
       }
     }
   },
@@ -1025,10 +1035,16 @@
         "system.text.json.nuspec",
         "useSharedDesignerContext.txt"
       ]
+    },
+    "Commun/1.0.0": {
+      "type": "project",
+      "path": "../Commun/Commun.csproj",
+      "msbuildProject": "../Commun/Commun.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+      "Commun >= 1.0.0",
       "Microsoft.EntityFrameworkCore >= 7.0.13",
       "Microsoft.EntityFrameworkCore.Design >= 7.0.13",
       "Pomelo.EntityFrameworkCore.MySql >= 7.0.0"
@@ -1060,7 +1076,11 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\farou\\source\\repos\\AnimalShelter\\AnimalShelter\\Commun\\Commun.csproj": {
+              "projectPath": "C:\\Users\\farou\\source\\repos\\AnimalShelter\\AnimalShelter\\Commun\\Commun.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

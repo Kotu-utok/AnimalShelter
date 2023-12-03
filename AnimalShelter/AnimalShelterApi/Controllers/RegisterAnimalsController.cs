@@ -15,25 +15,40 @@ namespace AnimalShelterApi.Controllers
         private readonly ILogger<RegisterAnimalsController> _logger;
         private IRegisterAnimalsServices _animalsServices;
         private IMapper _mapper;
-        public RegisterAnimalsController(ILogger<RegisterAnimalsController> logger, IRegisterAnimalsServices animalsServices, IMapper mapper)
+        public RegisterAnimalsController(IRegisterAnimalsServices animalsServices, IMapper mapper)
         {
-            _logger = logger;
+            //_logger = logger;
             _animalsServices = animalsServices;
             _mapper = mapper;
         }
 
-        [HttpPost]
-        public ActionResult<AnimalModel> RegisterAnimal([FromBody] AnimalModel newAnimal)
+        [HttpGet]
+        public async Task<ActionResult<AnimalModel>> GetAnimal()
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            OperationResult result = _animalsServices.RegisterAnimals(_mapper.Map<DomainAnimalModel>(newAnimal));
+            FetchOperationResult<List<DomainAnimalModel>> result = await _animalsServices.GetAnimals();
+            if (result.IsSuccess)
+                return Ok(_mapper.Map<List<AnimalModel>>(result.Entity));
+            else
+                return BadRequest(result);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<AnimalModel>> RegisterAnimals([FromBody] AnimalModel newAnimal)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            OperationResult result = await _animalsServices.RegisterAnimal(_mapper.Map<DomainAnimalModel>(newAnimal));
 
             if (result.IsSuccess)
-                return Ok(result);
+                return CreatedAtAction(nameof(GetAnimal), new { id = result.CreatedEntityId }, newAnimal);
             else
                 return BadRequest(result);
         }

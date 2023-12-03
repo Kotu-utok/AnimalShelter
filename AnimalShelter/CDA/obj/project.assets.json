@@ -335,6 +335,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
+          "Commun": "1.0.0",
           "Microsoft.EntityFrameworkCore": "7.0.13",
           "Pomelo.EntityFrameworkCore.MySql": "7.0.0"
         },

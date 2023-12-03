@@ -158,7 +158,11 @@
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Users\\farou\\source\\repos\\AnimalShelter\\AnimalShelter\\Commun\\Commun.csproj": {
+                "projectPath": "C:\\Users\\farou\\source\\repos\\AnimalShelter\\AnimalShelter\\Commun\\Commun.csproj"
+              }
+            }
           }
         },
         "warningProperties": {

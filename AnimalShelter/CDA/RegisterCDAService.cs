@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using CDA.MappingProfile;
+using CDA.Services.Implementation;
+using CDA.Services.Interface;
 
 namespace CDA
 {
@@ -12,7 +9,9 @@ namespace CDA
     {
         public static IServiceCollection RegisterTypeServiceCollectionExtention(this IServiceCollection serviceCollection)
         {
-            return serviceCollection.AddAutoMapper(typeof(AnimalMappingProfile));
+            serviceCollection.AddAutoMapper(typeof(AnimalMappingProfile));
+            serviceCollection.AddScoped<IRegisterAnimalsServices, RegisterAnimalServices>();
+            return serviceCollection;
 		}
     }
 }

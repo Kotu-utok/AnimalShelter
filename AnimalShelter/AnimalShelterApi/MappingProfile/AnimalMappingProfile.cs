@@ -8,7 +8,7 @@ namespace AnimalShelterApi.MappingProfile
     {
         public AnimalMappingProfile() 
         {
-            CreateMap<AnimalModel, DomainAnimalModel>();
+            CreateMap<AnimalModel, DomainAnimalModel>().ReverseMap();
         }   
     }
 }
